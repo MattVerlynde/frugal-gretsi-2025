@@ -3,35 +3,6 @@
 Cette page résume la procédure d'installation du pipeline de lecture, d'écriture, de stockage et de visualisation des données d'utilisation matérielle interne. Ce travail est basé sur le pipeline **Telegraf-InfluxDB-Grafana** (TIG). Il est largement inspiré du tutoriel disponible en ligne à l'adresse [https://domopi.eu/tig-le-trio-telegraf-influxdb-grafana-pour-surveiller-vos-equipements/](https://domopi.eu/tig-le-trio-telegraf-influxdb-grafana-pour-surveiller-vos-equipements/).
 Ce guide présente également la procédure d'interrogation de la base de données **InfluxDB** après l'exécution d'un script Python à l'aide d'un script bash.
 
-```bash
-.
-├── get_metrics.sh
-├── grafana_dashboard_template.json
-├── README.md
-├── screenshots_config
-│   ├── grafana_import_dashb1.png
-│   ├── grafana_import_dashb2.png
-│   ├── grafana_import_dashb3.png
-│   ├── grafana_select_influx.png
-│   ├── grafana_set_datasource1.png
-│   ├── grafana_set_datasource2.png
-│   └── grafana_welcome.png
-├── smart-switch
-│   ├── add-device-ha.png
-│   ├── config-homeassist.png
-│   ├── enable-stats.png
-│   ├── first-data.png
-│   ├── new-entry.png
-│   ├── pipeline.png
-│   └── smart-start.png
-│   ├── smartswitch7.jpg
-│   └── zstick7.jpg
-└── tig
-    ├── docker-compose.yml
-    └── telegraf
-        └── telegraf.conf
-```
-
 #### Table des matières
 
 - [Présentation du pipeline](#pipeline)
