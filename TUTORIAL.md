@@ -3,7 +3,7 @@
 Cette page résume la procédure d'installation du pipeline de lecture, d'écriture, de stockage et de visualisation des données d'utilisation matérielle interne. Ce travail est basé sur le pipeline **Telegraf-InfluxDB-Grafana** (TIG). Il est largement inspiré du tutoriel disponible en ligne à l'adresse [https://domopi.eu/tig-le-trio-telegraf-influxdb-grafana-pour-surveiller-vos-equipements/](https://domopi.eu/tig-le-trio-telegraf-influxdb-grafana-pour-surveiller-vos-equipements/).
 Ce guide présente également la procédure d'interrogation de la base de données **InfluxDB** après l'exécution d'un script Python à l'aide d'un script bash.
 
-*English version [here](https://github.com/MattVerlynde/performance-tracking.git/config/README.md)*
+*English version [here](https://github.com/MattVerlynde/performance-tracking/config/README.md)*
 
 #### Table des matières
 
