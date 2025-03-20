@@ -98,11 +98,12 @@ Celle-ci a été réalisée sur des séries temporelles d'images PolSAR multiban
 | Fichier | Commande associée | Description |
 | ---- | ------------------ | ----------- |
 | [change-detection.py](src/performance-tracking/experiments/conso_change/change-detection.py)  | `python change-detection.py --storage_path [CHEMIN_VERS_DOSSIER_POUR_STOCKER_LES_RÉSULTATS] --image [CHEMIN_VERS_DOSSIER_AVEC_IMAGES] --window [TAILLE_DE_FENÊTRE] --cores [NOMBRE_DE_CORES_UTILISÉS] --number_run [NOMBRE_DE_RUNS] --robust [ID_DE_ROBUSTESSE]` | Exécute des algorithmes de détection de changements sur les données UAVSAR |
-| [clustering_blob.py](src/performance-tracking/experiments/conso_clustering/clustering_blob.py)  | `python clustering_blob.py --storage_path [CHEMIN_VERS_DOSSIER_POUR_STOCKER_LES_RÉSULTATS] --data_seed [SEED] --random_seed [SEED] --n_clusters [NOMBRE_DE_CLUSTERS] --model [MÉTHODE_DE_CLUSTERING] --repeat [NOMBRE_DE_RUNS_DU_MODÈLE] --number_run/-n [NOMBRE_DE_RUNS]` | Exécute des algorithmes de clustering sur des données jouet |
 | [plot_change_detection.py](src/plot_change_detection.py)  | `python plot_change_detection.py --result_path [CHEMIN_VERS_RÉSULTATS] --output_path [CHEMIN_DE_SORTIE]` | Trace les résultats des scores pour la détection de changements |
-| [plot_clustering.py](src/plot_clustering.py)  | `python plot_clustering.py --result_path [CHEMIN_VERS_RÉSULTATS] --output_path [CHEMIN_DE_SORTIE]` | Trace les résultats des scores pour le clustering |
 
 ## Reproductibilité <a name="reproducibility"></a>
+
+![Table 1](doc/static/table1.jpg)
+![Figure 2](doc/static/figure2.jpg)
 
 | Fichier | Commande associée | Description |
 | ---- | ------------------ | ----------- |
