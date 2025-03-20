@@ -79,8 +79,8 @@ conda activate frugal-score
 Ce dépôt présente le code pour l'évaluation de la frugalité pour une tâcheclassique de traitement de données de télédétection : la détection de changements.
 Celle-ci a été réalisée sur des séries temporelles d'images PolSAR multibandes provenant de l'UAVSAR (Courtesy NASA/JPL-Caltech) [[1]](#1) avec des données de vérité terrain provenant de [[2]](#2).
 
-![Scene1_t0](./doc/static/Scene_1small.png)
-![Scene1_ground_truth](./doc/static/Scene_1small_truth.png)
+![Scene1_t0](./doc/static/Scene_2small.png)
+![Scene1_ground_truth](./doc/static/Scene_2small_truth.png)
 
 ## Utilisation
 
