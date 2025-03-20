@@ -258,31 +258,31 @@ Nous pouvons ensuite configurer Grafana.
 
 Sur la page d'accueil de Grafana, connectez-vous en utilisant le nom d'utilisateur et le mot de passe utilisés dans le fichier `.env`. Dans cet exemple, `grafana_user` et `grafana_password`.
 
-![Page d'accueil de Grafana](doc/static/screenshots_config/grafana_welcome.png)
+![Page d'accueil de Grafana](https://github.com/MattVerlynde/performance-tracking/blob/main/config/screenshots_config/grafana_welcome.png)
 
 Configurez la source de données et choisissez InfluxDB comme type de source.
 
-![Sélectionner la source de données (InfluxDB)](doc/static/screenshots_config/grafana_select_influx.png)
+![Sélectionner la source de données (InfluxDB)](https://github.com/MattVerlynde/performance-tracking/blob/main/config/screenshots_config/grafana_select_influx.png)
 
 Configurez la source de données avec le port InfluxDB et sélectionnez `FLUX` comme langage d'interrogation de la base de données.
 
-![Sélectionner le nom et le port](doc/static/screenshots_config/grafana_set_datasource1.png)
+![Sélectionner le nom et le port](https://github.com/MattVerlynde/performance-tracking/blob/main/config/screenshots_config/grafana_set_datasource1.png)
 
 Ajoutez les identifiants de connexion à la base de données avec ceux de c.
 
-![Ajout des identifiants](doc/static/screenshots_config/grafana_set_datasource2.png)
+![Ajout des identifiants](https://github.com/MattVerlynde/performance-tracking/blob/main/config/screenshots_config/grafana_set_datasource2.png)
 
 Importez un tableau de bord de visualisation compatible avec notre configuration. Nous pouvons en choisir un en ligne, mais celui avec l'identifiant `15650` est bien adapté pour cet exemple.
 
-![Importation du tableau de bord](doc/static/screenshots_config/grafana_import_dashb1.png)
+![Importation du tableau de bord](https://github.com/MattVerlynde/performance-tracking/blob/main/config/screenshots_config/grafana_import_dashb1.png)
 
 Choisissez la source configurée avant l'importation.
 
-![Sélection de la source](doc/static/screenshots_config/grafana_import_dashb2.png)
+![Sélection de la source](https://github.com/MattVerlynde/performance-tracking/blob/main/config/screenshots_config/grafana_import_dashb2.png)
 
 Enfin, choisissez les paramètres du tableau de bord pour nos données, ici le nom du bucket que nous avons configuré dans le fichier `.env`.
 
-![Sélection des paramètres](doc/static/screenshots_config/grafana_import_dashb3.png)
+![Sélection des paramètres](https://github.com/MattVerlynde/performance-tracking/blob/main/config/screenshots_config/grafana_import_dashb3.png)
 
 Nous pouvons ensuite modifier notre tableau de bord selon nos préférences, en choisissant différents paramètres ou requêtes (en langage [FLUX](https://docs.influxdata.com/influxdb/cloud/query-data/get-started/query-influxdb/)).
 
@@ -415,7 +415,7 @@ Une fois le pipeline TIG configuré, nous allons introduire la prise connectée 
 
 Prise Smart Switch 7 Aeotec &reg; | Contrôleur Z Stick 7 Aeotec &reg;
 :-------------------------:|:-------------------------:
-[<img src="smart-switch/smartswitch7.jpg" height="250"/>](doc/static/smart-switch/smartswitch7.jpg)  |  [<img src="smart-switch/zstick7.jpg" height="250"/>](doc/static/smart-switch/zstick7.jpg)
+[<img src="smart-switch/smartswitch7.jpg" height="250"/>](https://github.com/MattVerlynde/performance-tracking/blob/main/config/smart-switch/smartswitch7.jpg)  |  [<img src="smart-switch/zstick7.jpg" height="250"/>](https://github.com/MattVerlynde/performance-tracking/blob/main/config/smart-switch/zstick7.jpg)
 
 ### Installation de la prise <a name="plug-install"></a>
 
@@ -471,32 +471,32 @@ Configuration de Z-Wave JS sur le port choisi :
 
 Pour configurer Z-Wave JS afin de collecter des données à partir de la prise connectée, nous accédons à son interface sur la page `Smart Start`, ici à `http://localhost:8091`.
 
-![Smart Start](doc/static/smart-switch/smart-start.png)
+![Smart Start](https://github.com/MattVerlynde/performance-tracking/blob/main/config/smart-switch/smart-start.png)
 
 Ajoutez les informations du dispositif Smart Switch, en utilisant le bouton `Add`, et ajoutez le code DSK de la prise connectée (écrit sur l'emballage) et activez tous les systèmes de sécurité.
 
-![Nouvelle entrée](doc/static/smart-switch/new-entry.png)
+![Nouvelle entrée](https://github.com/MattVerlynde/performance-tracking/blob/main/config/smart-switch/new-entry.png)
 
 Une fois la prise ajoutée, configurez les paramètres de l'application. Sur la page `Settings`, à `Z-Wave`, ajoutez le nom du contrôleur USB précédemment identifié.
 
 Vérifiez que l'enregistrement des statistiques est activé.
 
-![Activer les statistiques](doc/static/smart-switch/enable-stats.png)
+![Activer les statistiques](https://github.com/MattVerlynde/performance-tracking/blob/main/config/smart-switch/enable-stats.png)
 
 Enfin, dans `Home Assistant`, ajoutez l'adresse IP du conteneur Z-Wave en tant qu'hôte. Cette adresse peut être trouvée en utilisant la commande `docker sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' zwave-js` dans le shell. Nous pouvons également modifier le port selon nos préférences.
 
-![Configurer Home Assistant](doc/static/smart-switch/config-homeassist.png)
+![Configurer Home Assistant](https://github.com/MattVerlynde/performance-tracking/blob/main/config/smart-switch/config-homeassist.png)
 
 Maintenant que Z-Wave JS est configuré, nous accédons à l'interface Home Assistant, ici à `http://localhost:8123`. Commencez par créer un compte en suivant le guide affiché sur cette interface.
 Une fois le compte créé, ajoutez le dispositif d'intérêt.
 
 Sur la page `Settings`, allez dans `Devices & services`.
-![Ajouter un appareil](doc/static/smart-switch/add-device-ha.png)
+![Ajouter un appareil](https://github.com/MattVerlynde/performance-tracking/blob/main/config/smart-switch/add-device-ha.png)
 
 Ajoutez une intégration Z-Wave en utilisant `Add integration` et en sélectionnant `Z-Wave`. Ajoutez l'adresse de la configuration Z-Wave JS au format `ws://[IP du conteneur zwave-js]:[port configuré]`.
 
 Sélectionnez le dispositif Smart Switch 7, il est maintenant ajouté. Les premières acquisitions de la prise sont maintenant visibles, et nous pouvons créer un tableau de bord si nous le souhaitons.
-![Obtenir les premières données](doc/static/smart-switch/first-data.png)
+![Obtenir les premières données](https://github.com/MattVerlynde/performance-tracking/blob/main/config/smart-switch/first-data.png)
 
 ### Connexion à InfluxDB <a name="influx-connect"></a>
 
