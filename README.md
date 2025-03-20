@@ -66,6 +66,8 @@ Ce travail repose sur le sous-module [performance-tracking](src/performance-trac
 
 ## Installation
 
+Installation de la chaîne de collecte de données : tutoriel disponible [ici](TUTORIAL.md).
+
 ### Dépendances
 
 python 3.11.8, codecarbon 2.3.4, numpy 1.26.4, pandas 2.2.1, scikit-learn 1.4.1
@@ -79,8 +81,8 @@ conda activate frugal-score
 Ce dépôt présente le code pour l'évaluation de la frugalité pour une tâcheclassique de traitement de données de télédétection : la détection de changements.
 Celle-ci a été réalisée sur des séries temporelles d'images PolSAR multibandes provenant de l'UAVSAR (Courtesy NASA/JPL-Caltech) [[1]](#1) avec des données de vérité terrain provenant de [[2]](#2).
 
-![Scene1_t0](./doc/static/Scene_2small.png)
-![Scene1_ground_truth](./doc/static/Scene_2small_truth.png)
+![Scene2_t0](./doc/static/Scene_2small.png)
+![Scene2_ground_truth](./doc/static/Scene_2small_truth.png)
 
 ## Utilisation
 
