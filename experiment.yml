@@ -1,0 +1,24 @@
+name: conso-change
+description: Run a change detection algorithm on SAR images and get consumption and performances
+path: src/performance-tracking/experiments/conso_change
+executable: src/performance-tracking/experiments/conso_change/change-detection.py
+executable_command: python
+tags:
+  - Statistics
+  - Change detection
+  - SAR
+  - Remote sensing
+  - Efficiency
+  - Carbon
+  - Energy
+actions:
+  - summarize:
+      name: summarize
+      executable: src/performance-tracking/experiments/conso/stats_summary.py
+      executable_command: python
+      description: Fetch consumption data and summarizes data in a unique csv file.
+  - plot:
+      name: plot
+      executable: src/plot_change_detection.py
+      executable_command: python
+      description: Plot summary statistics about the experiment
