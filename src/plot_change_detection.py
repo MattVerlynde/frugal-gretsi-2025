@@ -23,9 +23,10 @@ if __name__ == "__main__":
 
 # Load data
 data = pd.read_csv(args.result_path, index_col=None)
-data['Energy total'] = (data['Energy (plug)'])/(3.6*1e6) # Convert to kWh
-
-data.loc[data['Energy total'] == 0, 'Energy total'] = data.loc[data['Energy total'] == 0, 'Energy (CodeCarbon)'] / (3.6 * 1e6)
+if 'Energy (plug)' in data.columns:
+    data['Energy total'] = (data['Energy (plug)'])/(3.6*1e6) # Convert to kWh
+else:
+    data['Energy total'] = (data['Energy (CodeCarbon)'])/(3.6*1e6) # Convert to kWh
 energy = 'Energy total'
 
 legend_all = ['GLRT5','GLRT7','GLRT21','RobustGLRT5','RobustGLRT7','RobustGLRT21','LogDiff']
@@ -134,7 +135,7 @@ for i in range(len(data_grouped.columns)):
 plt.legend(legend_all)
 plt.show()
 
-data_energy = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack()['AUC']
+data_energy = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack()[energy]
 data_energy.to_csv(args.output_path + '/energy.csv', index=False)
 
 frug_fs = []

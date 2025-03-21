@@ -106,7 +106,13 @@ Pour reproduire la Table 1 de la [communication GRETSI](doc/submit_GRETSI_2025.p
 ![Table 1](doc/static/table1.jpg)
 
 ```bash
-python change-detection.py --storage_path output/0 --image data/Scene_2small --window [TAILLE_DE_FENÊTRE] --cores [NOMBRE_DE_CORES_UTILISÉS] --number_run [NOMBRE_DE_RUNS] --robust [ID_DE_ROBUSTESSE]
+qanat init .
+qanat experiment new -f experiment.yml
+qanat experiment run conso-change --param_file src/performance-tracking/experiments/conso_change/param_change.yaml
+
+python src/performance-tracking/experiments/conso/stats_summary.py --id 0 -g 1 --storage_path results/conso-change
+
+python src/plot_change_detection.py --result_path  --output_path 
 ```
 
 Pour reproduire la Figure 2 de la [communication GRETSI](doc/submit_GRETSI_2025.pdf) :
