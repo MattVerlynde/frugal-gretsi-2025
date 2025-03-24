@@ -29,7 +29,10 @@ else:
     data['Energy total'] = (data['Energy (CodeCarbon)'])/(3.6*1e6) # Convert to kWh
 energy = 'Energy total'
 
-legend_all = ['GLRT5','GLRT7','GLRT21','RobustGLRT5','RobustGLRT7','RobustGLRT21','LogDiff']
+# replace method values by names
+data['Method'] = data['Method'].replace({0: 'G-GLRT', 1: 'NG-GLRT', 2: 'LogDiff'})
+
+# legend_all = ['GLRT5','GLRT7','GLRT21','RobustGLRT5','RobustGLRT7','RobustGLRT21','LogDiff']
 
 # Plot data with error bars
 data_grouped = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack() # Group data by 'Number images' and 'Method'
@@ -38,6 +41,7 @@ plt.ylabel('Energy (kWh)')
 plt.xticks(rotation=0)
 plt.title('Energy consumption per method')
 plt.show()
+plt.close()
 
 data_grouped = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack() # Group data by 'Number images' and 'Method'
 data_grouped['Duration'].plot(kind='bar', yerr=2*data.groupby(['Method','Number images','Window size', 'Threads']).std().unstack()['Duration'], capsize=5)
@@ -45,6 +49,7 @@ plt.ylabel('Duration')
 plt.xticks(rotation=0)
 plt.title('Duration per method')
 plt.show()
+plt.close()
 
 data_grouped = data.groupby(['Number images','Window size', 'Threads','Method']).mean().unstack()
 data_grouped['AUC'].plot(kind='bar', yerr=2*data.groupby(['Number images','Window size', 'Threads', 'Method']).std().unstack()['AUC'], capsize=5)
@@ -52,6 +57,7 @@ plt.ylabel('AUC')
 plt.xticks(rotation=0)
 plt.title('AUC per method')
 plt.show()
+plt.close()
 
 # Calculate frugality scores
 data_grouped = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack()
@@ -73,12 +79,14 @@ plt.ylabel('Frugality score')
 plt.xticks(rotation=0)
 plt.title('Frugality score (WS)')
 plt.show()
+plt.close()
 
 data_grouped['FrugHM'].plot(kind='bar', yerr=2*data.groupby(['Method','Number images','Window size', 'Threads']).std().unstack()['FrugHM'], capsize=5)
 plt.ylabel('Frugality score')
 plt.xticks(rotation=0)
 plt.title('Frugality score (HM)')
 plt.show()
+plt.close()
 
 
 frug_ws = []
@@ -105,8 +113,10 @@ for i in range(len(data_grouped.columns)):
     for j in range(len(data_grouped.index)):
         legend_j = tuple(data_grouped.columns[i]) + data_grouped.index[j]
         legend.append(str(legend_j[1:]))
-plt.legend(legend_all)
+plt.legend(legend)
+plt.savefig(args.output_path + '/frugality_ws.png')
 plt.show()
+plt.close()
 
 frug_hm = []
 frug_hm_yerr = []
@@ -132,16 +142,35 @@ for i in range(len(data_grouped.columns)):
     for j in range(len(data_grouped.index)):
         legend_j = tuple(data_grouped.columns[i]) + data_grouped.index[j]
         legend.append(str(legend_j[1:]))
-plt.legend(legend_all)
+plt.legend(legend)
+plt.savefig(args.output_path + '/frugality_hm.png')
 plt.show()
+plt.close()
 
-data_energy = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack()[energy]
-data_energy.to_csv(args.output_path + '/energy.csv', index=False)
+# data_energy = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack()[energy]
+# data_energy.to_csv(args.output_path + '/energy.csv', index=False)
+
+# Plot energy consumption and AUC in a table
+
+data_energy = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack()[energy]*1000
+data_auc = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack()['AUC']
+data_energy_auc = pd.concat([data_energy, data_auc], axis=1).astype(str)
+data_energy_auc_error = pd.concat([
+    2*data.groupby(['Method','Number images','Window size', 'Threads']).std().unstack()[energy]*1000, 
+    2*data.groupby(['Method','Number images','Window size', 'Threads']).std().unstack()['AUC']], 
+    axis=1)
+data_energy_auc.columns = ['Energy (Wh)', 'AUC']
+for i in range(len(data_energy_auc.columns)):
+    for j in range(len(data_energy_auc.index)):
+        data_energy_auc.iloc[j,i] = '{:.3f} ± {:.3f}'.format(float(data_energy_auc.iloc[j,i]), float(data_energy_auc_error.iloc[j,i]))
+data_energy_auc.to_csv(args.output_path + '/energy_auc.csv', index=True)
+
+
 
 frug_fs = []
 frug_fs_yerr = []
 for w in np.arange(0, 1.1, 0.1):
-    data['FrugFS'] = data['AUC'] - w/(1 + 1/(data['Energy total']*1000*3600))
+    data['FrugFS'] = data['AUC'] - w/(1 + 1/(data['Energy total']*1000*3600)) # Convert energy to J
     data_grouped = data.groupby(['Method','Number images','Window size', 'Threads']).mean().unstack()
     frug_fs.append(data_grouped['FrugFS'].values.reshape(-1))
     frug_fs_yerr.append(data.groupby(['Method','Number images','Window size', 'Threads']).std().unstack()['FrugFS'].values.reshape(-1))
@@ -151,36 +180,51 @@ frug_fs_yerr = np.array(frug_fs_yerr)
 plt.plot(frug_fs)
 for i in range(frug_fs.shape[1]):
     plt.fill_between(np.arange(0, 11, 1), frug_fs[:,i] - 2*frug_fs_yerr[:,i], frug_fs[:,i] + 2*frug_fs_yerr[:,i], alpha=0.5)
-plt.xticks(np.arange(0, 11, 1), np.arange(0, 11, 1)/10)
+# plt.xticks(np.arange(0, 11, 1), np.arange(0, 11, 1)/10)
+# plt.ylabel('Frugality score')
+# plt.xlabel('W')
+# plt.title('Frugality score (FS)')
+
+# legend = []
+# threads = np.unique([x[1] for x in data_grouped.columns])
+# groups = len(data_grouped.columns)//len(data_grouped.index)
+# for i in range(len(threads)):
+#     for j in range(len(data_grouped.index)):
+#         print(data_grouped.index[j])
+#         legend_j = tuple([threads[i]]) + data_grouped.index[j]
+#         legend.append(str(legend_j))
+# plt.legend(legend)
+# plt.savefig(args.output_path + '/frugality_fs.png')
+# plt.show()
+# plt.close()
+
+plt.xticks(np.arange(0, 11, 1), np.arange(0, 22, 2)/10)
 plt.ylabel('Frugality score')
-plt.xlabel('W')
+plt.xlabel('X')
 plt.title('Frugality score (FS)')
 # make legend with thread number data_grouped.index
 legend = []
-for i in range(int(len(data_grouped.columns)/15)):
-    
+for i in range(len(data_grouped.columns)):
     for j in range(len(data_grouped.index)):
         legend_j = tuple(data_grouped.columns[i]) + data_grouped.index[j]
         legend.append(str(legend_j[1:]))
-plt.legend(legend_all)
+plt.legend(legend)
+plt.savefig(args.output_path + '/frugality_fs.png')
 plt.show()
+plt.close()
 
-frug_ws = pd.DataFrame(frug_ws, columns=legend)
-frug_hm = pd.DataFrame(frug_hm, columns=legend)
-frug_fs = pd.DataFrame(frug_fs, columns=legend)
+# frug_ws = pd.DataFrame(frug_ws, columns=legend)
+# frug_hm = pd.DataFrame(frug_hm, columns=legend)
+# frug_fs = pd.DataFrame(frug_fs, columns=legend)
 
-frug_ws.to_csv(args.output_path + '/frugality_ws.csv', index=False)
-frug_hm.to_csv(args.output_path + '/frugality_hm.csv', index=False)
-frug_fs.to_csv(args.output_path + '/frugality_fs.csv', index=False)
+# frug_ws.to_csv(args.output_path + '/frugality_ws.csv', index=False)
+# frug_hm.to_csv(args.output_path + '/frugality_hm.csv', index=False)
+# frug_fs.to_csv(args.output_path + '/frugality_fs.csv', index=False)
 
-frug_ws_yerr = pd.DataFrame(frug_ws_yerr, columns=legend)
-frug_hm_yerr = pd.DataFrame(frug_hm_yerr, columns=legend)
-frug_fs_yerr = pd.DataFrame(frug_fs_yerr, columns=legend)
+# frug_ws_yerr = pd.DataFrame(frug_ws_yerr, columns=legend)
+# frug_hm_yerr = pd.DataFrame(frug_hm_yerr, columns=legend)
+# frug_fs_yerr = pd.DataFrame(frug_fs_yerr, columns=legend)
 
-frug_ws_yerr.to_csv(args.output_path + '/frugality_ws_yerr.csv', index=False)
-frug_hm_yerr.to_csv(args.output_path + '/frugality_hm_yerr.csv', index=False)
-frug_fs_yerr.to_csv(args.output_path + '/frugality_fs_yerr.csv', index=False)
-
-pd.concat([frug_ws, frug_ws_yerr], axis=1).to_csv(args.output_path + '/frugality_ws_tot.csv', index=False)
-pd.concat([frug_hm, frug_hm_yerr], axis=1).to_csv(args.output_path + '/frugality_hm_tot.csv', index=False)
-pd.concat([frug_fs, frug_fs_yerr], axis=1).to_csv(args.output_path + '/frugality_fs_tot.csv', index=False)
+# frug_ws_yerr.to_csv(args.output_path + '/frugality_ws_yerr.csv', index=False)
+# frug_hm_yerr.to_csv(args.output_path + '/frugality_hm_yerr.csv', index=False)
+# frug_fs_yerr.to_csv(args.output_path + '/frugality_fs_yerr.csv', index=False)
