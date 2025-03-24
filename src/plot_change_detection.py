@@ -249,7 +249,7 @@ axs[2].set_xlabel('W')
 
 plt.legend(legend, bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.tight_layout()
-plt.savefig(args.output_path + '/FIG2.png')
+plt.savefig(args.output_path + '/FIGURE2.png')
 plt.show()
 
 # frug_ws = pd.DataFrame(frug_ws, columns=legend)
