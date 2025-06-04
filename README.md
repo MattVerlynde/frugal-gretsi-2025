@@ -81,6 +81,8 @@ Installation de la chaîne de collecte de données : tutoriel disponible [ici](T
 
 python 3.11.8, codecarbon 2.3.4, numpy 1.26.4, pandas 2.2.1, scikit-learn 1.4.1
 ```bash
+git clone --recurse-submodules -j8 git@github.com:MattVerlynde/frugal-gretsi-2025.git
+
 conda env create -f environment.yml
 conda activate frugal-score
 ```
